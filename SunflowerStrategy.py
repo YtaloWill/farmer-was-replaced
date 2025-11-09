@@ -26,9 +26,9 @@ def _execute():
 	cur_position = (get_pos_x(), get_pos_y())
 	xtate.sunflower_max_petals[cur_position] = cur_petals
 
-def run():
+def run(lx, ly):
 	while True:
-		Core.move_x_by_y(_execute, 4, 4)
-		for _ in range(4):
+		Core.move_x_by_y(_execute, lx, ly)
+		for _ in range(lx):
 			move(West)
 	
