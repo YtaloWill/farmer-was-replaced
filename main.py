@@ -1,7 +1,7 @@
 import Polyculture
 import PumpkinStrategy
 import GrassStrategy
-#import CactusStrategy
+import CactusStrategy
 #import LabyrinthStrategy
 import SunflowerStrategy
 import Core
@@ -11,21 +11,25 @@ harvest()
 clear()
 change_hat(Hats.Purple_Hat)
 
+
+
+def cactus_spawner():
+	size = 5
+	CactusStrategy.run(size, size)
+			
+
 def sunflower_spawner():
-	SunflowerStrategy.run()
+	size = 6
+	SunflowerStrategy.run(size, size)
 
 def pumpkin_spawner():
 	size = 6
 	PumpkinStrategy.run(size)
 
+cactus_spawner()
+#Core.move_to(10, 10)
+#spawn_drone(sunflower_spawner)
 
-spawn_drone(sunflower_spawner)
 
-Core.move_to(4, 0)
-spawn_drone(pumpkin_spawner)
-
-Core.move_to(11, 0)
-spawn_drone(pumpkin_spawner)
-
-Core.move_to(0, 6)
-Polyculture.run(5, 5)
+#Core.move_to(0, 0)
+#Polyculture.run(8, 8)
