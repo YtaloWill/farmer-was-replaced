@@ -4,12 +4,12 @@ import GrassStrategy
 #import CactusStrategy
 #import LabyrinthStrategy
 import SunflowerStrategy
+import Core
 
 harvest()
 # setup
 clear()
 change_hat(Hats.Purple_Hat)
-
 
 def sunflower_spawner():
 	SunflowerStrategy.run()
@@ -21,16 +21,11 @@ def pumpkin_spawner():
 
 spawn_drone(sunflower_spawner)
 
-for _ in range(4):
-	move(East)
+Core.move_to(4, 0)
 spawn_drone(pumpkin_spawner)
 
-for _ in range(6):
-	move(East)
+Core.move_to(11, 0)
 spawn_drone(pumpkin_spawner)
 
-for _ in range(6):
-	move(East)
-for _ in range(10):
-	move(South)
-Polyculture.run(16, 10)
+Core.move_to(0, 6)
+Polyculture.run(5, 5)
