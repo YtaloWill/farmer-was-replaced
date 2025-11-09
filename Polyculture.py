@@ -13,9 +13,9 @@ def _execute():
 			till()
 		plant(to_plant)
 
-def run(size):
+def run(lx, ly):
 	current_plant = 0
 	while True:
-		Core.move_x_by_y(_execute, size, size)
-		for _ in range(size):
+		Core.move_x_by_y(_execute, lx, ly)
+		for _ in range(lx):
 			move(West)

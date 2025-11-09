@@ -10,19 +10,27 @@ harvest()
 clear()
 change_hat(Hats.Purple_Hat)
 
-#while True:
-#	LabyrinthStrategy.run()
-#	CactusStrategy.run()
-#	do_a_flip()
-#	if num_items(Items.Hay) < 5000:
-#		GrassStrategy.run(0, 0, get_world_size()-1, get_world_size()-1)
-#	else:
-#		default_polyculture()
-	
-	#PumpkinStrategy.run(get_world_size())
-spawn_drone(SunflowerStrategy.run)
+
+def sunflower_spawner():
+	SunflowerStrategy.run()
+
+def pumpkin_spawner():
+	size = 6
+	PumpkinStrategy.run(size)
+
+
+spawn_drone(sunflower_spawner)
+
 for _ in range(4):
 	move(East)
-Polyculture.run(12)
-	
-#	CactoStrategy.run()
+spawn_drone(pumpkin_spawner)
+
+for _ in range(6):
+	move(East)
+spawn_drone(pumpkin_spawner)
+
+for _ in range(6):
+	move(East)
+for _ in range(10):
+	move(South)
+Polyculture.run(16, 10)
