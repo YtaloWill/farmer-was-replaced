@@ -12,18 +12,23 @@ def _is_max_petals():
 			return False
 	return True
 
+def _use_water():
+	if get_water() < 0.1:
+		use_item(Items.Water)		
+
 def _execute():
 	if can_harvest() and _is_max_petals():
 		harvest()
 	Core.check_and_till()
 	plant(Entities.Sunflower)
-	use_item(Items.Water)
+	_use_water()
 	cur_petals = measure()
 	cur_position = (get_pos_x(), get_pos_y())
 	xtate.sunflower_max_petals[cur_position] = cur_petals
 
 def run():
-	Core.move_x_by_y(_execute, 4, 4)
-	for _ in range(4):
-		move(West)
+	while True:
+		Core.move_x_by_y(_execute, 4, 4)
+		for _ in range(4):
+			move(West)
 	
