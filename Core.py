@@ -1,7 +1,7 @@
 def move_robot(fn, x, y, lx, ly):
 	for i in range(get_world_size()):
 		for j in range(get_world_size()):
-			if get_pos_x() >= x and get_pos_x() <= lx and get_pos_y() >= y and get_pos_y() <= ly:
+			if get_pos_x() >= x and get_pos_x() < lx and get_pos_y() >= y and get_pos_y() < ly:
 				fn()
 			move(North)
 		move(East)
