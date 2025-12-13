@@ -42,3 +42,7 @@ def move_to(x, y):
 def check_and_till():
 	if get_ground_type() != Grounds.Soil:
 		till()
+
+def is_soil_ground_plant(p):
+	return p in [Entities.Carrot, Entities.Pumpkin]
+
