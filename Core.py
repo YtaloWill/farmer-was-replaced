@@ -46,3 +46,13 @@ def check_and_till():
 def is_soil_ground_plant(p):
 	return p in [Entities.Carrot, Entities.Pumpkin]
 
+def run_world(f):
+	def row():
+		for _ in range(get_world_size()-1):
+			f()
+			move(East)
+		f()
+	for _ in range(get_world_size()):
+		if not spawn_drone(row):
+			row()
+		move(North)
