@@ -4,21 +4,31 @@ import xtate
 def _plant_cactus():
 	if get_ground_type() != Grounds.Soil:
 		till()
-	plant(Entities.Cactus)
+	if get_entity_type() != Entities.Cactus:
+		plant(Entities.Cactus)
 
 def _sort():
 	current = measure()
 	north = measure(North)
 	east = measure(East)
+	is_x_limit = get_pos_x() == get_world_size()-1
+	is_y_limit = get_pos_y() == get_world_size()-1
 	
-	if current != None and north != None and north < current:
+	if not is_y_limit and current != None and north != None and north < current:
 		swap(North)
 		xtate.cactus_counter = 0
-	elif current != None and east != None and east < current:
+	elif not is_x_limit and current != None and east != None and east < current:
 		swap(East)
 		xtate.cactus_counter = 0
 	xtate.cactus_counter += 1
 	
+
+def execute():
+	_plant_cactus()
+	_sort()
+	if xtate.cactus_counter == get_world_size() * get_world_size():
+		harvest()
+
 
 def run(lx, ly):
 	init_position = (get_pos_x(), get_pos_y())
