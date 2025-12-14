@@ -1,9 +1,22 @@
 # TODO: reuse labyrinth
+import Core
 
-def _build():
+def _get_weird_substance_needed(laby_size):
+	return laby_size * 2**(num_unlocked(Unlocks.Mazes) - 1)
+
+def _build(laby_size):
 	plant(Entities.Bush)
-	substance = get_world_size() * 2**(num_unlocked(Unlocks.Mazes) - 1)
-	use_item(Items.Weird_Substance, substance)	
+	substance = laby_size or get_world_size() * 2**(num_unlocked(Unlocks.Mazes) - 1)
+	use_item(Items.Weird_Substance, substance)
+
+def _set_drone_positions(laby_size):
+	Core.move_to(0, laby_size-1)
+	spawn_drone(_execute([East, South, North, West]))
+	Core.move_to(laby_size-1, laby_size-1)
+	spawn_drone(_execute([East, South, North, West]))
+	Core.move_to(laby_size-1, 0)
+	spawn_drone(_execute([East, South, North, West]))
+	Core.move_to(0, 0)
 
 def _clamp(lowest, greatest, value):
 	if value > greatest:
@@ -28,6 +41,9 @@ def _get_position_direction(direction):
 
 def _execute(moves):
 	def _search():
+		while get_entity_type() != Entities.Hedge:
+			continue
+		
 		while True:
 			if get_entity_type() == Entities.Treasure or get_entity_type() != Entities.Hedge:
 				harvest()
@@ -47,6 +63,7 @@ def _execute(moves):
 				if not moved:
 					step = backtrack.pop()
 					move(backstep[step])
+		return
 
 	backstep = {North:South, South:North, West:East, East:West}
 	backtrack = []
@@ -54,7 +71,9 @@ def _execute(moves):
 	return _search
 
 def run():
+	laby_size = get_world_size()
+	_set_drone_positions(laby_size)
+	
 	if get_entity_type() != Entities.Treasure and get_entity_type() != Entities.Hedge:
-		_build()
-	spawn_drone(_execute([East, South, North, West]))
+		_build(_get_weird_substance_needed(laby_size))
 	_execute([West, North, South, East])()
