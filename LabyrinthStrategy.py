@@ -29,7 +29,7 @@ def _get_position_direction(direction):
 def _execute(moves):
 	def _search():
 		while True:
-			if get_entity_type() == Entities.Treasure:
+			if get_entity_type() == Entities.Treasure or get_entity_type() != Entities.Hedge:
 				harvest()
 				break
 	
